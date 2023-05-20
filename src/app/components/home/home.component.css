@@ -1,0 +1,12 @@
+.container {
+  max-width: 800px;
+}
+
+h2 {
+  color: #007BFF;
+}
+
+input, select {
+  height: 50px;
+  font-size: 20px;
+}

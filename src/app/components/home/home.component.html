@@ -1,0 +1,29 @@
+<div class="container mt-5">
+  <h2 class="text-center">Simple Dictionary</h2>
+
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+      <input [(ngModel)]="word" class="form-control" placeholder="Enter a word">
+    </div>
+  </div>
+
+  <div class="row justify-content-center mt-3">
+    <div class="col-md-3">
+      <select [(ngModel)]="sourceLanguage" (ngModelChange)="updateTargetLanguages()" class="form-control">
+        <option *ngFor="let language of languages" [value]="language">{{ getLanguageName(language) }}</option>
+      </select>
+    </div>
+
+    <div class="col-md-3">
+      <select [(ngModel)]="targetLanguage" class="form-control">
+        <option *ngFor="let language of targetLanguages" [value]="language">{{ getLanguageName(language) }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row justify-content-center mt-3">
+    <div class="col-md-2">
+      <button (click)="search()" class="btn btn-primary btn-block">Search</button>
+    </div>
+  </div>
+</div>
