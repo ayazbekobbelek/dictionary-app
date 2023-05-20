@@ -5,8 +5,10 @@ import {WordDetailComponent} from "./components/word-detail/word-detail.componen
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'word', component: WordDetailComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent, children: [
+      { path: 'word', component: WordDetailComponent }
+    ]},
 ];
 
 @NgModule({

@@ -5,6 +5,7 @@ import {TranslationResponse} from "../../models/translationResponse.type"
 import {ThesaurusResponse} from "../../models/thesaurusResponse.type";
 import {LexicalaResponse} from "../../models/LexicalaResponse";
 import {WordService} from "../../services/words.service";
+import {switchMap} from "rxjs";
 
 @Component({
   selector: 'app-word-detail',
@@ -26,6 +27,22 @@ export class WordDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.updateWordDetails();
+    this.route.queryParams.pipe(
+      switchMap(params => {
+        this.word = params['word'];
+        this.languagePair = params['languagePair'];
+
+        return this.wordService.getWordDetails(this.word, this.languagePair);
+      })
+    ).subscribe(response => {
+      this.details = response[0];
+      this.translation = response[1];
+      this.synonyms = response[2];
+    });
+  }
+
+  private updateWordDetails() {
     this.route.queryParams.subscribe(params => {
       this.word = params['word']
       this.languagePair = params['languagePair']

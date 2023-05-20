@@ -38,8 +38,8 @@ export class HomeComponent implements OnInit {
   }
 
   search() {
-    // Navigate to the word detail page
-    this.router.navigate(['/word'], { queryParams: {
+    // Navigate to the word detail page within the HomeComponent's router outlet
+    this.router.navigate(['home', 'word'], { queryParams: {
         word: this.word,
         languagePair: `${this.sourceLanguage}-${this.targetLanguage}`
       }});
