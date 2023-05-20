@@ -30,7 +30,7 @@ export class WordDetailComponent implements OnInit {
     this.updateWordDetails();
     this.route.queryParams.pipe(
       switchMap(params => {
-        this.word = params['word'];
+        this.word = params['word'][0].toUpperCase()+params['word'].substring(1);
         this.languagePair = params['languagePair'];
 
         return this.wordService.getWordDetails(this.word, this.languagePair);

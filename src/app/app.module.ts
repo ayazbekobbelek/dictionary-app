@@ -8,9 +8,10 @@ import { AppComponent } from './app.component';
 
 import { WordService } from './services/words.service';
 import { YandexApiService } from './services/yandex-api.service';
-import { DictionaryService } from './services/dictionary.service';
 import { HomeComponent } from './components/home/home.component';
 import { WordDetailComponent } from './components/word-detail/word-detail.component';
+import {MatButtonModule} from "@angular/material/button";
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,12 +23,13 @@ import { WordDetailComponent } from './components/word-detail/word-detail.compon
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatButtonModule,
+    ReactiveFormsModule
   ],
   providers: [
     WordService,
     YandexApiService,
-    DictionaryService
   ],
   bootstrap: [AppComponent]
 })

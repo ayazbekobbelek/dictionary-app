@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, forkJoin } from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {forkJoin, Observable} from 'rxjs';
 import {LexicalaResponse} from "../models/LexicalaResponse";
 import {ThesaurusResponse} from "../models/thesaurusResponse.type";
 import {TranslationResponse} from "../models/translationResponse.type";
@@ -17,7 +17,8 @@ export class WordService {
   constructor(private http: HttpClient,
               private thesaurusApiService: ThesaurusService,
               private lexicalaApiService: LexicalaApiService,
-              private yandexApiService: YandexApiService) { }
+              private yandexApiService: YandexApiService) {
+  }
 
   getWordDetails(word: string, language: string): Observable<[LexicalaResponse, TranslationResponse, ThesaurusResponse]> {
     const sourceLanguage = language.split('-')[0]
