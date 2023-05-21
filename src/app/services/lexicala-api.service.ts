@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs'
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import {catchError, Observable, of} from 'rxjs'
 import {LexicalaResponse} from "../models/LexicalaResponse";
 import {environment} from "../environments/environment";
 
@@ -21,8 +21,19 @@ export class LexicalaApiService {
   constructor(private http: HttpClient) {
   }
 
-  getWordDetails(word: string, language: string): Observable<LexicalaResponse> {
+
+  getWordDetails(word: string, language: string): Observable<LexicalaResponse | undefined> {
     const url = `${this.API_URL}?text=${word}&language=${language}`;
-    return this.http.get<LexicalaResponse>(url, this.httpOptions);
+    return this.http.get<LexicalaResponse>(url, this.httpOptions)
+      .pipe(
+        catchError(this.handleError<LexicalaResponse>('getWordDetails', undefined))
+      );
+  }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: HttpErrorResponse): Observable<T> => {
+      console.error(`${operation} failed: ${error.message}`);
+      return of(result as T);
+    };
   }
 }

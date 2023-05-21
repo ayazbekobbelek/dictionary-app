@@ -1,24 +1,24 @@
-<div *ngIf="word; else noData" class="container mt-5">
-  <h2 class="text-center mb-4">{{ word }}</h2>
+<div *ngIf="wordDetails; else noData" class="container mt-5">
+  <h2 class="text-center mb-4">{{ wordDetails.word }}</h2>
 
   <div class="row">
     <div class="col-lg-6">
-      <div *ngIf="details" class="card mb-4">
+      <div *ngIf="wordDetails" class="card mb-4">
         <div class="card-body">
           <h5 class="card-title">Word Details</h5>
-          <p><strong>Pronunciation:</strong> {{ getPrononcuation(details) }}</p>
-          <p><strong>Definition:</strong> {{ getDefinitions(details) }}</p>
-          <p><strong>Example:</strong> {{ getExamples(details) }}</p>
+          <p><strong>Pronunciation:</strong> {{ wordDetails.pronunciation }}</p>
+          <p><strong>Definition:</strong> {{ wordDetails.definition }}</p>
+          <p><strong>Example:</strong> {{ wordDetails.examples }}</p>
         </div>
       </div>
     </div>
 
     <div class="col-lg-6">
-      <div *ngIf="translation&&synonyms" class="card mb-4">
+      <div *ngIf="wordDetails" class="card mb-4">
         <div class="card-body">
           <h5 class="card-title">Translation and Synonyms</h5>
-          <p><strong>Translations:</strong> {{ getTranslation(translation).join(', ') }}</p>
-          <p><strong>Synonyms:</strong> {{ getSynonyms(synonyms).join(', ') }}</p>
+          <p><strong>Translations:</strong> {{ wordDetails.translation?.join(', ')}}</p>
+          <p><strong>Synonyms:</strong> {{ wordDetails.synonyms?.join('|') }}</p>
         </div>
       </div>
     </div>
