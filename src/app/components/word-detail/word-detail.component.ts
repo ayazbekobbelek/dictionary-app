@@ -5,6 +5,9 @@ import {switchMap} from "rxjs";
 import {WordType} from "../../models/word.type";
 import {AppStateService} from "../../services/app-state.service";
 
+/**
+ * Component for displaying the details of a specific word.
+ */
 @Component({
   selector: 'app-word-detail',
   templateUrl: './word-detail.component.html',
@@ -15,7 +18,12 @@ export class WordDetailComponent implements OnInit {
   languagePair: string = '';
   wordDetails: WordType | undefined;
 
-
+  /**
+   * Constructor for the WordDetailComponent.
+   * @param {ActivatedRoute} route - The active route.
+   * @param {WordService} wordService - The WordService for fetching word details.
+   * @param {AppStateService} appStateService - The AppStateService for tracking application state.
+   */
   constructor(
     private route: ActivatedRoute,
     private wordService: WordService,
@@ -24,7 +32,12 @@ export class WordDetailComponent implements OnInit {
 
   }
 
+  /**
+   * Angular lifecycle hook that is called once upon component initialization.
+   */
   ngOnInit() {
+    // set the application state to indicate a search operation,
+    // then update word details based on the query parameters of the current route
     this.appStateService.setSearchClicked(true)
     this.updateWordDetails();
     this.route.queryParams.pipe(
@@ -39,6 +52,9 @@ export class WordDetailComponent implements OnInit {
     });
   }
 
+  /**
+   * Fetches the details of the word specified in the current route's query parameters.
+   */
   private updateWordDetails() {
     this.route.queryParams.subscribe(params => {
       this.word = params['word']

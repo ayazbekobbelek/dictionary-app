@@ -10,15 +10,14 @@ import { WordService } from './services/words.service';
 import { YandexApiService } from './services/yandex-api.service';
 import { HomeComponent } from './components/home/home.component';
 import { WordDetailComponent } from './components/word-detail/word-detail.component';
-import {MatButtonModule} from "@angular/material/button";
-import { ReactiveFormsModule } from '@angular/forms';
 import {MatCardModule} from "@angular/material/card";
 import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatSelectModule} from "@angular/material/select";
-import {MatInputModule} from "@angular/material/input";
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatInputModule} from "@angular/material/input";
+import {MatSelectModule} from "@angular/material/select";
+import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -31,15 +30,14 @@ import {MatIconModule} from "@angular/material/icon";
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
-    MatButtonModule,
-    ReactiveFormsModule,
     MatCardModule,
     MatFormFieldModule,
-    MatSelectModule,
-    MatInputModule,
-    BrowserAnimationsModule,
     MatToolbarModule,
-    MatIconModule
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatIconModule,
+    BrowserAnimationsModule
   ],
   providers: [
     WordService,

@@ -3,6 +3,9 @@ import {Router} from '@angular/router';
 import {YandexApiService} from "../../services/yandex-api.service";
 import {AppStateService} from "../../services/app-state.service";
 
+/**
+ * Component for managing the application's homepage.
+ */
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -17,14 +20,24 @@ export class HomeComponent implements OnInit {
   languageMap: Map<string, string[]> = new Map();
   searchClicked: boolean = false;
 
-
+  /**
+   * Constructor for the HomeComponent.
+   * @param {Router} router - The Angular router.
+   * @param {YandexApiService} yandexApiService - The YandexApiService for fetching supported languages.
+   * @param {AppStateService} appStateService - The AppStateService for tracking application state.
+   */
   constructor(private router: Router,
               private yandexApiService: YandexApiService,
               private appStateService: AppStateService) {
     this.appStateService.searchClicked$.subscribe(value => this.searchClicked = value);
   }
 
+  /**
+   * Angular lifecycle hook that is called once upon component initialization.
+   */
   ngOnInit() {
+    // fetch the supported language pairs from Yandex API when the component initializes
+    // and update the language options for source and target accordingly
     this.yandexApiService.getSupportedLanguages().subscribe(languagePairs => {
       const languageSet = new Set<string>();
       for (const pair of languagePairs) {
@@ -45,6 +58,9 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  /**
+   * Navigates to the word detail page with the specified word and language pair.
+   */
   search() {
     this.appStateService.setSearchClicked(true);
     // Navigate to the word detail page within the HomeComponent's router outlet
@@ -56,12 +72,19 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  /**
+   * Updates the target languages based on the selected source language.
+   */
   updateTargetLanguages() {
-    // Update target languages based on the selected source language
     this.targetLanguage = '';
     this.targetLanguages = this.languageMap.get(this.sourceLanguage) || [];
   }
 
+  /**
+   * Returns the full language name based on the provided language code.
+   * @param {string} code - The language code.
+   * @returns {string} - The full language name.
+   */
   getLanguageName(code: string): string {
     const languageMap: { [key: string]: string } = {
       "bg": "Bulgarian",
@@ -92,6 +115,9 @@ export class HomeComponent implements OnInit {
     return languageMap[code] || code;
   }
 
+  /**
+   * Navigates to the homepage and updates the application state.
+   */
   navigateToHome() {
     this.appStateService.setSearchClicked(false);
     this.router.navigateByUrl('/home');
