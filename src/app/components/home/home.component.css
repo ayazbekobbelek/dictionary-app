@@ -1,12 +1,59 @@
-.container {
-  max-width: 800px;
+.container-fluid {
+  width: 100%;
 }
 
-h2 {
-  color: #007BFF;
+.title {
+  font-size: 2.5rem;
 }
 
-input, select {
+
+
+.form-container {
+  background-color: #F5F5F5;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.form-container.center {
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-container.top {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding:  1rem;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.input-field {
+  width: 70%;
+}
+
+.language-selection {
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
+}
+
+.select-language {
+  width: 48%;
+}
+
+.mat-raised-button {
+  align-self: center;
+  height: 56px;
+}
+button[mat-icon-button] {
   height: 50px;
-  font-size: 20px;
+  width: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+

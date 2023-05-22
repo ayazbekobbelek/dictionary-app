@@ -1,8 +1,12 @@
 export interface WordType{
   word: string,
   pronunciation?: string,
-  definition?: string[],
-  examples?: string[],
   translation?: string[],
-  synonyms?: string[]
+  wordDetails: WordDetailsType[]
+}
+
+export interface WordDetailsType{
+  definition: string,
+  synonyms?: string[],
+  examples?: string[]
 }

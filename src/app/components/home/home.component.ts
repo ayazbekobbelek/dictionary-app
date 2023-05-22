@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 import {YandexApiService} from "../../services/yandex-api.service";
+import {AppStateService} from "../../services/app-state.service";
 
 @Component({
   selector: 'app-home',
@@ -14,35 +15,45 @@ export class HomeComponent implements OnInit {
   languages: string[] = [];
   targetLanguages: string[] = [];
   languageMap: Map<string, string[]> = new Map();
+  searchClicked: boolean = false;
 
-  constructor(private router: Router, private yandexApiService: YandexApiService) { }
+
+  constructor(private router: Router,
+              private yandexApiService: YandexApiService,
+              private appStateService: AppStateService) {
+    this.appStateService.searchClicked$.subscribe(value => this.searchClicked = value);
+  }
 
   ngOnInit() {
     this.yandexApiService.getSupportedLanguages().subscribe(languagePairs => {
       const languageSet = new Set<string>();
       for (const pair of languagePairs) {
         const [source, target] = pair.split('-');
-        // Check if source and target languages exist in the languageMap
-        if (this.getLanguageName(source) !== source && this.getLanguageName(target) !== target) {
-          languageSet.add(source);
-          if (this.languageMap.has(source)) {
-            this.languageMap.get(source)!.push(target);
-          } else {
-            this.languageMap.set(source, [target]);
+        if (source == "en") {
+          if (this.getLanguageName(source) !== source && this.getLanguageName(target) !== target) {
+            languageSet.add(source);
+            if (this.languageMap.has(source)) {
+              this.languageMap.get(source)!.push(target);
+            } else {
+              this.languageMap.set(source, [target]);
+            }
           }
         }
-      }
 
-      this.languages = Array.from(languageSet);
-    });
+        this.languages = Array.from(languageSet);
+      }
+    })
   }
 
   search() {
+    this.appStateService.setSearchClicked(true);
     // Navigate to the word detail page within the HomeComponent's router outlet
-    this.router.navigate(['home', 'word'], { queryParams: {
+    this.router.navigate(['home', 'word'], {
+      queryParams: {
         word: this.word,
         languagePair: `${this.sourceLanguage}-${this.targetLanguage}`
-      }});
+      }
+    });
   }
 
   updateTargetLanguages() {
@@ -80,5 +91,11 @@ export class HomeComponent implements OnInit {
 
     return languageMap[code] || code;
   }
+
+  navigateToHome() {
+    this.appStateService.setSearchClicked(false);
+    this.router.navigateByUrl('/home');
+  }
+
 
 }

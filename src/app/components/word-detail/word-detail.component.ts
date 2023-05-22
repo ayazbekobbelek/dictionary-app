@@ -1,12 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-
-import {TranslationResponse} from "../../models/translationResponse.type"
-import {ThesaurusResponse} from "../../models/thesaurusResponse.type";
-import {LexicalaResponse} from "../../models/LexicalaResponse";
 import {WordService} from "../../services/words.service";
 import {switchMap} from "rxjs";
 import {WordType} from "../../models/word.type";
+import {AppStateService} from "../../services/app-state.service";
 
 @Component({
   selector: 'app-word-detail',
@@ -16,23 +13,23 @@ import {WordType} from "../../models/word.type";
 export class WordDetailComponent implements OnInit {
   word: string = '';
   languagePair: string = '';
-  details: LexicalaResponse | undefined;
-  translation: TranslationResponse | undefined;
-  synonyms: ThesaurusResponse | undefined;
-  wordDetails: WordType | undefined
+  wordDetails: WordType | undefined;
+
 
   constructor(
     private route: ActivatedRoute,
-    private wordService: WordService
+    private wordService: WordService,
+    private appStateService: AppStateService
   ) {
 
   }
 
   ngOnInit() {
+    this.appStateService.setSearchClicked(true)
     this.updateWordDetails();
     this.route.queryParams.pipe(
       switchMap(params => {
-        this.word = params['word'][0].toUpperCase()+params['word'].substring(1);
+        this.word = params['word'][0].toUpperCase() + params['word'].substring(1);
         this.languagePair = params['languagePair'];
 
         return this.wordService.getWordDetails(this.word, this.languagePair);

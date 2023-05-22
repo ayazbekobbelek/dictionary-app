@@ -1,35 +1,53 @@
-<div class="container mt-5">
-  <h2 class="text-center">Simple Dictionary</h2>
+<div class="container-fluid">
+  <mat-toolbar color="primary" (click)="navigateToHome()">
+    <span class="title">Simple Dictionary</span>
+  </mat-toolbar>
 
-  <div class="row justify-content-center mt-5">
-    <div class="col-md-6">
-      <input [(ngModel)]="word" class="form-control" placeholder="Enter a word" required>
+  <div *ngIf="!searchClicked" class="form-container center">
+    <mat-form-field appearance="outline" class="input-field">
+      <input matInput [(ngModel)]="word" placeholder="Enter a word" required>
+    </mat-form-field>
+
+    <div class="language-selection">
+      <mat-form-field appearance="outline" class="select-language">
+        <mat-select [(ngModel)]="sourceLanguage" (ngModelChange)="updateTargetLanguages()" placeholder="Source Language" required>
+          <mat-option *ngFor="let language of languages" [value]="language">{{ getLanguageName(language) }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="select-language">
+        <mat-select [(ngModel)]="targetLanguage" placeholder="Target Language" required>
+          <mat-option *ngFor="let language of targetLanguages" [value]="language">{{ getLanguageName(language) }}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
+
+    <button mat-raised-button color="accent" (click)="search()" [disabled]="!word || !sourceLanguage || !targetLanguage">Search</button>
   </div>
 
-  <div class="row justify-content-center mt-3">
-    <div class="col-md-3">
-      <select [(ngModel)]="sourceLanguage" (ngModelChange)="updateTargetLanguages()" class="form-control" required>
-        <option *ngFor="let language of languages" [value]="language">{{ getLanguageName(language) }}</option>
-      </select>
+  <div *ngIf="searchClicked" class="form-container top">
+    <mat-form-field appearance="outline" class="input-field">
+      <input matInput [(ngModel)]="word" placeholder="Enter a word" required>
+    </mat-form-field>
+
+    <div class="language-selection">
+      <mat-form-field appearance="outline" class="select-language">
+        <mat-select [(ngModel)]="sourceLanguage" (ngModelChange)="updateTargetLanguages()" placeholder="Source Language" required>
+          <mat-option *ngFor="let language of languages" [value]="language">{{ getLanguageName(language) }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="select-language">
+        <mat-select [(ngModel)]="targetLanguage" placeholder="Target Language" required>
+          <mat-option *ngFor="let language of targetLanguages" [value]="language">{{ getLanguageName(language) }}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
 
-    <div class="col-md-3">
-      <select [(ngModel)]="targetLanguage" class="form-control" required>
-        <option *ngFor="let language of targetLanguages" [value]="language">{{ getLanguageName(language) }}</option>
-      </select>
-    </div>
+    <button mat-icon-button color="primary" (click)="search()" [disabled]="!word || !sourceLanguage || !targetLanguage">
+      <mat-icon>search</mat-icon>
+    </button>
   </div>
 
-  <div class="row justify-content-center mt-3">
-    <div class="col-md-2">
-      <button (click)="search()" [disabled]="!word || !sourceLanguage || !targetLanguage" class="btn btn-primary btn-block">Search</button>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-12">
-      <router-outlet></router-outlet>
-    </div>
-  </div>
+  <router-outlet></router-outlet>
 </div>

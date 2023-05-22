@@ -1,3 +1,47 @@
+
+::ng-deep body {
+  background-color: #e8eaf6; /* light indigo */
+}
+.container {
+  max-width: 900px;
+}
+
 h2 {
-  color: #007BFF;
+  color: #3f51b5;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+h4 {
+  font-size: 1.4rem;
+}
+
+.container p {
+  font-size: 1.1rem;
+  color: #3f51b5;
+}
+
+.synonyms {
+  color: black;
+  font-size: 1.1rem;
+}
+
+.mat-card {
+  background-color: #f0f3fd; /* light indigo */
+  margin-bottom: 1.5rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+ul {
+  margin-left: 1rem;
+  font-size: 1.2rem;
+}
+
+hr {
+  border-top: 1px solid #3f51b5;
+}
+
+.text-primary {
+  color: #3f51b5 !important;
 }
