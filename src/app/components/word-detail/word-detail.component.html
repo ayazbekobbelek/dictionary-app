@@ -1,8 +1,9 @@
 <div *ngIf="wordDetails; else noData" class="container">
   <div class="text-center">
     <h2 class="display-3">{{ wordDetails.word }}</h2>
-    <p class="lead"><strong>Pronunciation:</strong> {{ wordDetails.pronunciation }}</p>
-    <p class="lead"><strong>Translation:</strong> {{ wordDetails.translation?.join(', ') }}</p>
+    <p class="lead" *ngIf="wordDetails.pronunciation"><strong>Pronunciation: </strong> {{ wordDetails?.pronunciation  }}</p>
+    <p class="lead" *ngIf=" wordDetails.translation && wordDetails.translation.length>0"><strong>Translation: </strong> {{ wordDetails.translation?.join(', ') }}</p>
+    <p class="lead" *ngIf="!wordDetails.pronunciation && wordDetails.translation?.length==0"><strong>Could not find word in dictionary</strong></p>
   </div>
 
   <mat-card class="mt-5" *ngFor="let detail of wordDetails.wordDetails">
@@ -23,3 +24,4 @@
     <p class="text-center">No word data to display</p>
   </div>
 </ng-template>
+

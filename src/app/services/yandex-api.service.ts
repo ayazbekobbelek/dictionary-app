@@ -4,7 +4,6 @@ import {catchError, Observable, of} from 'rxjs';
 import {environment} from '../environments/environment';
 import {TranslationResponse} from "../models/translationResponse.type";
 import {Languages} from "../models/languages.type";
-import {LexicalaResponse} from "../models/LexicalaResponse";
 
 @Injectable({
   providedIn: 'root'
